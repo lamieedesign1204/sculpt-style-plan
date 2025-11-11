@@ -1,4 +1,4 @@
-import { Calendar, TrendingUp, ClipboardList, Bell, ChevronDown } from "lucide-react";
+import { Calendar, TrendingUp, ClipboardList, Bell, ChevronDown, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -7,6 +7,13 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 import { Link } from "react-router-dom";
 
 const Home = () => {
@@ -31,6 +38,37 @@ const Home = () => {
       title: "SMS Notifications",
       description: "Nhắc nhở qua SMS để không bỏ lỡ buổi tập nào",
     },
+  ];
+
+  const testimonials = [
+    {
+      name: "Nguyễn Minh Anh",
+      role: "Học viên",
+      rating: 5,
+      feedback: "Ứng dụng thật sự đã thay đổi cuộc sống của tôi! Giao diện đẹp, dễ sử dụng và tính năng nhắc lịch qua SMS rất tiện lợi.",
+      avatar: "MA"
+    },
+    {
+      name: "Trần Hoàng Long",
+      role: "Thành viên VIP",
+      rating: 5,
+      feedback: "Các bài tập được thiết kế khoa học và phù hợp với từng body type. Sau 3 tháng tôi đã thấy sự thay đổi rõ rệt!",
+      avatar: "HL"
+    },
+    {
+      name: "Lê Thu Hà",
+      role: "Học viên mới",
+      rating: 4,
+      feedback: "Tôi là người mới bắt đầu nhưng nhờ có hướng dẫn chi tiết, tôi đã tự tin hơn rất nhiều. Hệ thống tracking giúp tôi theo dõi tiến độ dễ dàng.",
+      avatar: "TH"
+    },
+    {
+      name: "Phạm Đức Anh",
+      role: "Thành viên",
+      rating: 5,
+      feedback: "Tính năng đặt lịch linh hoạt và SMS nhắc lịch giúp tôi không bao giờ bỏ lỡ buổi tập. Đội ngũ support cũng rất nhiệt tình!",
+      avatar: "DA"
+    }
   ];
 
   const faqs = [
@@ -115,6 +153,64 @@ const Home = () => {
               <h3 className="text-5xl font-bold text-primary">95%</h3>
               <p className="text-xl text-muted-foreground">Hài lòng</p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="py-20 px-4">
+        <div className="container mx-auto">
+          <h2 className="text-4xl font-bold text-center mb-4">Khách hàng nói gì về chúng tôi</h2>
+          <p className="text-center text-muted-foreground mb-12 text-lg">
+            Hàng ngàn người đã tin tưởng và đạt được mục tiêu của họ
+          </p>
+          <div className="max-w-5xl mx-auto">
+            <Carousel
+              opts={{
+                align: "start",
+                loop: true,
+              }}
+              className="w-full"
+            >
+              <CarouselContent>
+                {testimonials.map((testimonial, index) => (
+                  <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/2">
+                    <Card className="border-2 hover:border-primary/50 transition-all duration-300 h-full">
+                      <CardHeader>
+                        <div className="flex items-start gap-4">
+                          <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold">
+                            {testimonial.avatar}
+                          </div>
+                          <div className="flex-1">
+                            <CardTitle className="text-lg mb-1">{testimonial.name}</CardTitle>
+                            <p className="text-sm text-muted-foreground mb-2">{testimonial.role}</p>
+                            <div className="flex gap-1">
+                              {Array.from({ length: 5 }).map((_, i) => (
+                                <Star
+                                  key={i}
+                                  className={`h-4 w-4 ${
+                                    i < testimonial.rating
+                                      ? "fill-primary text-primary"
+                                      : "text-muted-foreground/30"
+                                  }`}
+                                />
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-muted-foreground leading-relaxed">
+                          "{testimonial.feedback}"
+                        </p>
+                      </CardContent>
+                    </Card>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="hidden md:flex" />
+              <CarouselNext className="hidden md:flex" />
+            </Carousel>
           </div>
         </div>
       </section>
